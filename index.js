@@ -5,10 +5,3 @@ const bot = new SlackBot({
     token: 'xoxb-883833217717-885722925607-2nxHIbDkgCsVBreTWo7qtjMP',
     name: 'westbot'
 })
-
-// Satyam's Tasks
-// Weather 
-// Reminder
-
-// Soundarya's Tasks
-// Joke
