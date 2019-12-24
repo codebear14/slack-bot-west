@@ -41,11 +41,22 @@ function handleMessage(message){
         chuckjoke()
     }
 
-    if(message.includes(' weather')){
+    else if(message.includes(' icanjoke')){
+        icanhazdadjoke()
+    }
+    else if(message.includes(' yomama')){
+        yomomma()
+    }
+    else if(message.includes(' joke')){
+        randomjoke()
+    }
+
+    else if(message.includes(' weather')){
         getWeather(city)
     }
 }
 
+//Tell a Chuck Norris Joke
 function chuckjoke(){
     axios.get('http://api.icndb.com/jokes/random')
     .then(res => {
@@ -57,7 +68,44 @@ function chuckjoke(){
     
         bot.postMessageToChannel(
             'general', 
-            `Chuck Norris: ${joke}`, 
+            `${joke}`, 
+            params 
+        )
+    })
+}
+
+//Tell a I can haz dad Joke
+function icanhazdadjoke(){
+    axios.get('https://icanhazdadjoke.com/slack')
+    .then(res => {
+        //console.log(res.data.attachments[0].text)
+        const joke = res.data.attachments[0].text
+        //sending the joke to slack
+        const params = {
+            icon_emoji: ':laughing:'
+        }
+    
+        bot.postMessageToChannel(
+            'general', 
+            `${joke}`, 
+            params 
+        )
+    })
+}
+//Tell a Yo momma Joke
+function yomomma(){
+    axios.get('https://api.yomomma.info/')
+    .then(res => {
+        //console.log(res.data.joke)
+        const joke = res.data.joke
+        //sending the joke to slack
+        const params = {
+            icon_emoji: ':laughing:'
+        }
+    
+        bot.postMessageToChannel(
+            'general', 
+            `${joke}`, 
             params 
         )
     })
@@ -85,3 +133,18 @@ function getWeather(city){
             
         })
 }
+//Generating Random Jokes 
+function randomjoke(){
+    const rand = Math.floor(Math.random() * Math.floor(3))
+    //console.log(rand)
+    if(rand == 0){
+        chuckjoke()
+    }
+    else if(rand == 1){
+        icanhazdadjoke()
+    }
+    else if(rand == 2){
+        yomomma()
+    }
+}
+
