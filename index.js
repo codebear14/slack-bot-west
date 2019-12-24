@@ -6,7 +6,6 @@ const bot = new SlackBot({
     name: 'westbot'
 })
 
-<<<<<<< HEAD
 //Sound's part
 
 bot.on('start', () => {
@@ -40,8 +39,15 @@ function handleMessage(message){
     if(message.includes(' chucknorris')){
         chuckjoke()
     }
+    else if(message.includes(' icanjoke')){
+        icanhazdadjoke()
+    }
+    else if(message.includes(' joke')){
+        randomjoke()
+    }
 }
 
+//Tell a Chuck Norris Joke
 function chuckjoke(){
     axios.get('http://api.icndb.com/jokes/random')
     .then(res => {
@@ -53,12 +59,40 @@ function chuckjoke(){
     
         bot.postMessageToChannel(
             'general', 
-            `Chuck Norris: ${joke}`, 
+            `${joke}`, 
             params 
         )
     })
 }
-=======
-//Task Started
-//Task Begins
->>>>>>> efd73337d912102f905eadf71d66da843bf391cc
+
+//Tell a I can haz dad Joke
+function icanhazdadjoke(){
+    axios.get('https://icanhazdadjoke.com/slack')
+    .then(res => {
+        //console.log(res.data.attachments[0].text)
+        const joke = res.data.attachments[0].text
+        //sending the joke to slack
+        const params = {
+            icon_emoji: ':laughing:'
+        }
+    
+        bot.postMessageToChannel(
+            'general', 
+            `${joke}`, 
+            params 
+        )
+    })
+}
+
+//Generating Random Jokes 
+function randomjoke(){
+    const rand = Math.floor(Math.random() * Math.floor(2))
+    //console.log(rand)
+    if(rand == 0){
+        chuckjoke()
+    }
+    else if(rand == 1){
+        icanhazdadjoke()
+    }
+}
+
