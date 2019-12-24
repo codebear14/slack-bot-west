@@ -42,6 +42,9 @@ function handleMessage(message){
     else if(message.includes(' icanjoke')){
         icanhazdadjoke()
     }
+    else if(message.includes(' yomama')){
+        yomomma()
+    }
     else if(message.includes(' joke')){
         randomjoke()
     }
@@ -83,16 +86,36 @@ function icanhazdadjoke(){
         )
     })
 }
-
+//Tell a Yo momma Joke
+function yomomma(){
+    axios.get('https://api.yomomma.info/')
+    .then(res => {
+        //console.log(res.data.joke)
+        const joke = res.data.joke
+        //sending the joke to slack
+        const params = {
+            icon_emoji: ':laughing:'
+        }
+    
+        bot.postMessageToChannel(
+            'general', 
+            `${joke}`, 
+            params 
+        )
+    })
+}
 //Generating Random Jokes 
 function randomjoke(){
-    const rand = Math.floor(Math.random() * Math.floor(2))
+    const rand = Math.floor(Math.random() * Math.floor(3))
     //console.log(rand)
     if(rand == 0){
         chuckjoke()
     }
     else if(rand == 1){
         icanhazdadjoke()
+    }
+    else if(rand == 2){
+        yomomma()
     }
 }
 
