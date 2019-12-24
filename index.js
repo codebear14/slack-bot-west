@@ -6,6 +6,7 @@ const bot = new SlackBot({
     name: 'westbot'
 })
 
+<<<<<<< HEAD
 //Sound's part
 
 bot.on('start', () => {
@@ -57,3 +58,7 @@ function chuckjoke(){
         )
     })
 }
+=======
+//Task Started
+//Task Begins
+>>>>>>> efd73337d912102f905eadf71d66da843bf391cc
